@@ -120,9 +120,15 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="mobile-header-actions">
+            <Link to="/cart" className="mobile-cart-icon-btn" title="Cart">
+              <ShoppingCart size={22} />
+              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+            </Link>
+            <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Category Navigation */}
@@ -161,6 +167,7 @@ const Navbar = () => {
         )}
         <div className="mobile-links">
           <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>
+          <Link to="/cart" onClick={() => setMobileOpen(false)}>Cart {cartCount > 0 && `(${cartCount})`}</Link>
           {categories.map(cat => (
             <Link key={cat.slug} to={`/shop/${cat.slug}`} onClick={() => setMobileOpen(false)}>
               {cat.name}
