@@ -1,0 +1,172 @@
+.collection-page {
+  background: var(--bg-color);
+  padding: 24px 0 80px;
+  min-height: 70vh;
+}
+
+.breadcrumb {
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: var(--primary);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.breadcrumb a:hover {
+  color: var(--primary-dark);
+}
+
+.bc-sep {
+  color: var(--border-color);
+}
+
+.collection-layout {
+  display: flex;
+  gap: 32px;
+}
+
+.collection-sidebar-wrapper {
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.collection-main {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.collection-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.collection-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.collection-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.result-count {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.sort-select {
+  padding: 10px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  background: var(--white);
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition);
+}
+
+.sort-select:focus {
+  border-color: var(--primary);
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+.load-more-wrap {
+  text-align: center;
+  margin-top: 48px;
+}
+
+/* Skeleton reuse */
+.collection-grid .skeleton-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.collection-grid .skeleton-img {
+  width: 100%;
+  aspect-ratio: 1/1.1;
+  background: #e2e8f0;
+}
+
+.collection-grid .skeleton-text {
+  height: 14px;
+  margin: 16px;
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.collection-grid .skeleton-text.short {
+  width: 60%;
+  margin-top: 8px;
+}
+
+@media (max-width: 992px) {
+  .collection-layout {
+    flex-direction: column;
+  }
+  .collection-sidebar-wrapper {
+    width: 100%;
+  }
+  .collection-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .collection-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
