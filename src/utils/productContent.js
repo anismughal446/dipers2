@@ -11,6 +11,11 @@ const categoryCopy = {
   school: 'Ready for busy school days, this pick helps make getting out the door feel a little easier. Check the product information to see if it suits your child.'
 };
 
+const verifiedImageFixes = {
+  '/bp/cdn/shop/files/Q79253.jpg?width=600': 'https://pigeon.com.pk/cdn/shop/files/q79253.1_1.png?v=1759231246',
+  '/bp/cdn/shop/files/Q79252.jpg?width=600': 'https://pigeon.com.pk/cdn/shop/files/q79252-2.png?v=1759231211&width=1445',
+};
+
 export function productDescription(product) {
   const category = String(product.category || '').toLowerCase();
   const copy = categoryCopy[category] || 'A thoughtful pick for little ones and the people who care for them. Explore the product details and find out whether it suits your family’s everyday needs.';
@@ -18,6 +23,7 @@ export function productDescription(product) {
 }
 
 export function productImageUrl(image) {
+  if (verifiedImageFixes[image]) return verifiedImageFixes[image];
   if (typeof image !== 'string' || !image.startsWith('/bp/')) return image;
   return `https://babyplanet.pk/${image.slice(4)}`;
 }

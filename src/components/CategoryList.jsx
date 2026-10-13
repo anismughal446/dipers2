@@ -12,7 +12,7 @@ const categories = [
   { name: 'Toys', slug: 'toys', image: '/bp/cdn/shop/files/B204001019492203_d0052073-ef33-423f-b069-c7ecd7ee6bc8.png?width=600', color: '#fff8e1' },
   { name: 'Diapering', slug: 'diapering', image: '/bp/cdn/shop/files/B187007007350008_01064fb3-6276-48e1-b507-f58762e66eb3.png?width=600', color: '#e0f7fa' },
   { name: 'Nursery', slug: 'nursery', image: '/bp/cdn/shop/files/B187001204330008_1708774c-fab0-451b-9dd8-4af64493de5d.png?width=600', color: '#fce4ec' },
-  { name: 'Moms', slug: 'moms', image: '/bp/cdn/shop/files/Q79253.jpg?width=600', color: '#f1f8e9' },
+  { name: 'Moms', slug: 'moms', image: '/bp/cdn/shop/files/Q691_c8b12616-64c5-4e99-83a1-7b55abd3ec5f.jpg?width=600', color: '#f1f8e9' },
   { name: 'School', slug: 'school', image: '/bp/cdn/shop/files/B187010005930000_1e1a4b09-9a07-405f-9fd5-f6c193f252a9.png?width=600', color: '#e8eaf6' },
 ];
 
