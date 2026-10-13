@@ -26,33 +26,51 @@ const CollectionPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('');
-  const [selectedVendor, setSelectedVendor] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState('');
+  const [availability, setAvailability] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
-    setLoading(true);
-    let url = `${API_URL}/products?limit=24`;
-    if (category === 'sale') {
-      url += `&is_sale=1`;
-    } else if (category === 'new-arrival') {
-      url += `&is_new=1`;
-    } else if (category) {
-      url += `&category=${category}`;
-    }
-    if (selectedVendor) {
-      url += `&vendor=${selectedVendor}`;
-    }
-    if (sortBy) {
-      url += `&sort=${sortBy}`;
-    }
+    setSelectedBrand('');
+    setSelectedPrice('');
+    setAvailability('');
+    setSortBy('');
+    setPage(1);
+  }, [category]);
 
-    fetch(url)
-      .then(res => res.json())
+  useEffect(() => {
+    const controller = new AbortController();
+    if (page === 1) setLoading(true);
+    const params = new URLSearchParams({ limit: '24', page: String(page) });
+    if (category === 'sale') {
+      params.set('is_sale', '1');
+    } else if (category === 'new-arrival') {
+      params.set('is_new', '1');
+    } else if (category) {
+      params.set('category', category);
+    }
+    if (selectedBrand) params.set('brand', selectedBrand);
+    if (selectedPrice === 'under-1000') params.set('maxPrice', '999');
+    if (selectedPrice === '1000-2000') { params.set('minPrice', '1000'); params.set('maxPrice', '1999'); }
+    if (selectedPrice === '2000-plus') params.set('minPrice', '2000');
+    if (availability) params.set('availability', availability);
+    if (sortBy) params.set('sort', sortBy);
+
+    fetch(`${API_URL}/products?${params}`, { signal: controller.signal })
+      .then(res => {
+        if (!res.ok) throw new Error('Could not load products.');
+        setTotalProducts(Number(res.headers.get('X-Total-Count')) || 0);
+        return res.json();
+      })
       .then(data => {
-        setProducts(data);
+        setProducts(current => page === 1 ? data : [...current, ...data]);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
-  }, [category, selectedVendor, sortBy]);
+      .catch(error => { if (error.name !== 'AbortError') setLoading(false); });
+    return () => controller.abort();
+  }, [category, selectedBrand, selectedPrice, availability, sortBy, page]);
 
   const title = categoryTitles[category] || 'All Products';
 
@@ -68,8 +86,15 @@ const CollectionPage = () => {
         <div className="collection-layout">
           <aside className="collection-sidebar-wrapper">
             <Sidebar
-              selectedVendor={selectedVendor}
-              onVendorChange={setSelectedVendor}
+              category={category}
+              isSale={category === 'sale'}
+              isNew={category === 'new-arrival'}
+              selectedBrand={selectedBrand}
+              onBrandChange={brand => { setSelectedBrand(brand); setPage(1); }}
+              selectedPrice={selectedPrice}
+              onPriceChange={price => { setSelectedPrice(price); setPage(1); }}
+              availability={availability}
+              onAvailabilityChange={value => { setAvailability(value); setPage(1); }}
             />
           </aside>
 
@@ -77,11 +102,11 @@ const CollectionPage = () => {
             <div className="collection-top-bar">
               <h1 className="collection-title">{title}</h1>
               <div className="collection-controls">
-                <span className="result-count">{products.length} products</span>
+                <span className="result-count">Showing {products.length} of {totalProducts} products</span>
                 <select
                   className="sort-select"
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
+                  onChange={(e) => { setSortBy(e.target.value); setPage(1); }}
                 >
                   <option value="">Sort by: Featured</option>
                   <option value="price_asc">Price: Low to High</option>
@@ -116,9 +141,11 @@ const CollectionPage = () => {
               </div>
             )}
 
-            {products.length > 0 && (
+            {products.length > 0 && products.length < totalProducts && (
               <div className="load-more-wrap">
-                <button className="btn btn-secondary">Load More Products</button>
+                <button className="btn btn-secondary" onClick={() => setPage(current => current + 1)} disabled={loading}>
+                  {loading ? 'Loading…' : 'Load More Products'}
+                </button>
               </div>
             )}
           </main>

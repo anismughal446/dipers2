@@ -47,6 +47,23 @@
   color: var(--primary);
 }
 
+.filter-count {
+  margin-left: auto;
+  color: var(--text-light);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.filter-reset {
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 0;
+}
+
+.filter-reset:hover { color: var(--primary-dark); text-decoration: underline; }
+
 .filter-checkbox input {
   display: none;
 }

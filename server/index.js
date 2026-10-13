@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'littlenest_super_secret_key_2024';
 
-app.use(cors());
+app.use(cors({ exposedHeaders: ['X-Total-Count'] }));
 app.use(express.json());
 
 // ─── JWT Middleware ───────────────────────────────────────────────────────────
@@ -158,15 +158,17 @@ app.post('/api/orders', authenticateToken, (req, res) => {
 
 // ─── Product Routes (Public) ──────────────────────────────────────────────────
 app.get('/api/products', (req, res) => {
-  const { category, vendor, minPrice, maxPrice, sort, page = 1, limit = 12 } = req.query;
+  const { category, vendor, brand, minPrice, maxPrice, availability, sort, page = 1, limit = 12 } = req.query;
   let query = 'SELECT * FROM products';
   const conditions = [];
   const params = [];
 
   if (category) { conditions.push('category = ?'); params.push(category); }
-  if (vendor) { conditions.push('vendor = ?'); params.push(vendor); }
+  if (brand || vendor) { conditions.push('brand = ?'); params.push(brand || vendor); }
   if (minPrice) { conditions.push('price >= ?'); params.push(parseInt(minPrice)); }
   if (maxPrice) { conditions.push('price <= ?'); params.push(parseInt(maxPrice)); }
+  if (availability === 'in_stock') conditions.push('stock > 0');
+  if (availability === 'out_of_stock') conditions.push('stock = 0');
   if (req.query.is_sale === '1') conditions.push('is_sale = 1');
   if (req.query.is_new === '1') conditions.push('is_new = 1');
 
@@ -180,9 +182,14 @@ app.get('/api/products', (req, res) => {
   query += ` LIMIT ? OFFSET ?`;
   params.push(parseInt(limit), offset);
 
-  db.all(query, params, (err, rows) => {
-    if (err) return res.status(500).json({ error: 'Database error' });
-    res.json(rows);
+  const countQuery = `SELECT COUNT(*) AS total FROM products${conditions.length ? ` WHERE ${conditions.join(' AND ')}` : ''}`;
+  db.get(countQuery, params.slice(0, params.length - 2), (countErr, countRow) => {
+    if (countErr) return res.status(500).json({ error: 'Database error' });
+    db.all(query, params, (err, rows) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      res.set('X-Total-Count', String(countRow.total));
+      res.json(rows);
+    });
   });
 });
 
@@ -193,10 +200,35 @@ app.get('/api/categories', (req, res) => {
   });
 });
 
-app.get('/api/vendors', (req, res) => {
-  db.all('SELECT DISTINCT vendor FROM products', [], (err, rows) => {
+app.get('/api/brands', (req, res) => {
+  const { category, is_sale, is_new } = req.query;
+  const conditions = [];
+  const params = [];
+  if (category) { conditions.push('category = ?'); params.push(category); }
+  if (is_sale === '1') conditions.push('is_sale = 1');
+  if (is_new === '1') conditions.push('is_new = 1');
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  db.all(`SELECT brand, COUNT(*) AS count FROM products ${where} GROUP BY brand ORDER BY brand`, params, (err, rows) => {
     if (err) return res.status(500).json({ error: 'Database error' });
-    res.json(rows.map(r => r.vendor));
+    res.json(rows);
+  });
+});
+
+app.get('/api/filter-options', (req, res) => {
+  const { category, is_sale, is_new } = req.query;
+  const conditions = [];
+  const params = [];
+  if (category) { conditions.push('category = ?'); params.push(category); }
+  if (is_sale === '1') conditions.push('is_sale = 1');
+  if (is_new === '1') conditions.push('is_new = 1');
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  db.all(`SELECT brand, COUNT(*) AS count FROM products ${where} GROUP BY brand ORDER BY brand`, params, (brandErr, brands) => {
+    if (brandErr) return res.status(500).json({ error: 'Could not load brand filters.' });
+    db.get(`SELECT COUNT(*) AS total, COALESCE(SUM(CASE WHEN stock > 0 THEN 1 ELSE 0 END), 0) AS in_stock,
+      COALESCE(SUM(CASE WHEN stock = 0 THEN 1 ELSE 0 END), 0) AS out_of_stock FROM products ${where}`, params, (stockErr, availability) => {
+      if (stockErr) return res.status(500).json({ error: 'Could not load availability filters.' });
+      res.json({ brands, availability });
+    });
   });
 });
 
