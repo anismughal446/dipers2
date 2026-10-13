@@ -4,6 +4,7 @@ import { ShoppingCart, Heart, Truck, Shield, RefreshCw, Star } from 'lucide-reac
 import { useShop } from '../context/ShopContext';
 import ProductGrid from './ProductGrid';
 import './ProductDetails.css';
+import { productImageUrl } from '../utils/productContent';
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -51,7 +52,7 @@ const ProductDetails = () => {
         <div className="product-main-grid">
           <div className="product-gallery">
             <div className="main-img-wrap">
-              <img src={product.image} alt={product.name} />
+              <img src={productImageUrl(product.image)} alt={product.name} />
             </div>
           </div>
 

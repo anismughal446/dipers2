@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Truck, Shield, RefreshCw } from 'lucide-react';
 import './Hero.css';
+import { productImageUrl } from '../utils/productContent';
 
 const Hero = () => {
   return (
@@ -37,7 +38,7 @@ const Hero = () => {
         <div className="hero-visual fade-in-up" style={{animationDelay: '0.2s'}}>
           <div className="hero-image-wrapper">
             <img
-              src="/bp/cdn/shop/files/01-mothersday050526.png"
+              src={productImageUrl('/bp/cdn/shop/files/01-mothersday050526.png')}
               alt="Summer baby collection"
               className="hero-img"
             />

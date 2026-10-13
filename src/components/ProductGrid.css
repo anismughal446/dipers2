@@ -172,6 +172,13 @@
   overflow: hidden;
 }
 
+.product-description {
+  color: var(--text-medium, #64748b);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  margin: 0 0 14px;
+}
+
 .product-pricing {
   display: flex;
   align-items: center;

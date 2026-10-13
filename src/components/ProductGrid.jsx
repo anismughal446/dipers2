@@ -4,6 +4,7 @@ import { ShoppingCart, Heart, Eye } from 'lucide-react';
 import './ProductGrid.css';
 
 import { useShop } from '../context/ShopContext';
+import { productDescription, productImageUrl } from '../utils/productContent';
 
 const ProductCard = ({ product }) => {
   const { addToCart, toggleWishlist, wishlist, openQuickView } = useShop();
@@ -24,7 +25,7 @@ const ProductCard = ({ product }) => {
           <Heart size={18} fill={isWishlisted ? "currentColor" : "none"} />
         </button>
         <Link to={`/product/${product.id}`}>
-          <img src={product.image} alt={product.name} loading="lazy" />
+          <img src={productImageUrl(product.image)} alt={product.name} loading="lazy" />
         </Link>
         <div className="product-actions">
           <button
@@ -48,6 +49,7 @@ const ProductCard = ({ product }) => {
         <Link to={`/product/${product.id}`}>
           <h3 className="product-name">{product.name}</h3>
         </Link>
+        <p className="product-description">{productDescription(product)}</p>
         <div className="product-pricing">
           <span className="price-now">Rs. {product.price?.toLocaleString()}</span>
           {product.old_price && (

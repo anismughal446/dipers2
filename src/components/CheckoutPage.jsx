@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { CreditCard, Truck, CheckCircle, ArrowLeft, ShieldCheck, LogIn } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CreditCard, Truck, CheckCircle, ArrowLeft, LogIn } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
 import './CheckoutPage.css';
+import { productImageUrl } from '../utils/productContent';
+
+const paymentLabels = { cod: 'Cash on Delivery', stripe: 'Card payment (Stripe)', jazzcash: 'JazzCash', easypaisa: 'Easypaisa' };
 
 const CheckoutPage = () => {
   const { cart, removeFromCart } = useShop();
-  const { isLoggedIn, authLoading } = useAuth();
-  const navigate = useNavigate();
+  const { isLoggedIn, authLoading, getToken, user } = useAuth();
   const [step, setStep] = useState(1); // 1: Info, 2: Payment, 3: Success
   const [paymentMethod, setPaymentMethod] = useState('cod');
+  const [order, setOrder] = useState(null);
+  const [submitError, setSubmitError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    firstName: '',
-    lastName: '',
+    email: user?.email || '',
+    firstName: user?.name?.split(' ')[0] || '',
+    lastName: user?.name?.split(' ').slice(1).join(' ') || '',
     address: '',
     city: '',
     phone: ''
@@ -53,13 +58,32 @@ const CheckoutPage = () => {
     );
   }
 
-  const handleNextStep = (e) => {
+  const handleNextStep = async (e) => {
     e.preventDefault();
     if (step === 1) setStep(2);
     else if (step === 2) {
-      // Simulate order processing
-      setStep(3);
-      // Clear cart would happen here in a real app
+      setSubmitError('');
+      setSubmitting(true);
+      try {
+        const response = await fetch('http://localhost:5000/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
+          body: JSON.stringify({
+            items: cart.map(({ id, name, image, price, quantity }) => ({ id, name, image, price, quantity })),
+            shipping_address: { name: `${formData.firstName} ${formData.lastName}`.trim(), email: formData.email, phone: formData.phone, address: formData.address, city: formData.city },
+            subtotal, shipping, total, payment_method: paymentMethod
+          })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Could not place your order.');
+        setOrder(data.order);
+        cart.forEach(item => removeFromCart(item.id));
+        setStep(3);
+      } catch (error) {
+        setSubmitError(error.message || 'Could not connect to the shop server.');
+      } finally {
+        setSubmitting(false);
+      }
     }
   };
 
@@ -69,15 +93,14 @@ const CheckoutPage = () => {
         <div className="success-card">
           <CheckCircle size={80} color="#0d9488" />
           <h1>Order Placed Successfully!</h1>
-          <p>Thank you for shopping with LittleNest. Your order <strong>#LN-{Math.floor(Math.random() * 90000) + 10000}</strong> has been received.</p>
+          <p>Thank you for shopping with LittleNest. Your order <strong>#LN-{order?.id}</strong> has been saved to your account.</p>
           <div className="order-summary-box">
-            <p><strong>Payment Method:</strong> {paymentMethod === 'cod' ? 'Cash on Delivery' : 'Online Payment'}</p>
-            <p><strong>Total Amount:</strong> Rs. {total.toLocaleString()}</p>
+            <p><strong>Payment Method:</strong> {paymentLabels[paymentMethod]}</p>
+            <p><strong>Payment Status:</strong> {paymentMethod === 'cod' ? 'Pay on delivery' : 'Pending provider setup'}</p>
+            <p><strong>Total Amount:</strong> Rs. {(order?.total ?? total).toLocaleString()}</p>
           </div>
           <p className="delivery-est">Estimated Delivery: 2-4 business days</p>
-          <Link to="/" className="btn btn-primary" onClick={() => cart.forEach(item => removeFromCart(item.id))}>
-            Back to Home
-          </Link>
+          <Link to="/account" className="btn btn-primary">View My Orders</Link>
         </div>
       </div>
     );
@@ -156,7 +179,7 @@ const CheckoutPage = () => {
             ) : (
               <div className="checkout-section">
                 <h3>Payment Method</h3>
-                <p className="payment-tip">All transactions are secure and encrypted.</p>
+                <p className="payment-tip">Choose a payment option. Online gateways need merchant credentials before payments can be collected.</p>
                 
                 <div className="payment-options">
                   <label className={`payment-option ${paymentMethod === 'cod' ? 'selected' : ''}`}>
@@ -176,42 +199,26 @@ const CheckoutPage = () => {
                     </div>
                   </label>
 
-                  <label className={`payment-option ${paymentMethod === 'online' ? 'selected' : ''}`}>
-                    <input 
-                      type="radio" 
-                      name="payment" 
-                      value="online" 
-                      checked={paymentMethod === 'online'}
-                      onChange={() => setPaymentMethod('online')}
-                    />
-                    <div className="option-info">
-                      <CreditCard size={20} />
-                      <div>
-                        <strong>Online Payment</strong>
-                        <span>Credit/Debit Card, EasyPaisa, JazzCash</span>
-                      </div>
-                    </div>
-                  </label>
+                  {[
+                    ['stripe', 'Card payment (Stripe)', 'Hosted card checkout · setup required'],
+                    ['jazzcash', 'JazzCash', 'Mobile wallet · merchant setup required'],
+                    ['easypaisa', 'Easypaisa', 'Mobile wallet · merchant setup required']
+                  ].map(([value, title, detail]) => (
+                    <label key={value} className={`payment-option ${paymentMethod === value ? 'selected' : ''}`}>
+                      <input type="radio" name="payment" value={value} checked={paymentMethod === value} onChange={() => setPaymentMethod(value)} />
+                      <div className="option-info"><CreditCard size={20} /><div><strong>{title}</strong><span>{detail}</span></div></div>
+                    </label>
+                  ))}
                 </div>
-
-                {paymentMethod === 'online' && (
-                  <div className="online-payment-form">
-                    <div className="form-group">
-                      <input type="text" placeholder="Card Number" />
-                    </div>
-                    <div className="form-row">
-                      <input type="text" placeholder="MM / YY" />
-                      <input type="text" placeholder="CVV" />
-                    </div>
-                  </div>
-                )}
+                {paymentMethod !== 'cod' && <p className="payment-tip">This order will be saved as pending. No card or wallet details are collected on this site.</p>}
+                {submitError && <p role="alert" className="payment-tip" style={{ color: '#b91c1c' }}>{submitError}</p>}
 
                 <div className="checkout-actions">
                   <button type="button" className="back-link" onClick={() => setStep(1)}>
                     <ArrowLeft size={18}/> Back to Shipping
                   </button>
-                  <button type="submit" className="btn btn-primary complete-btn">
-                    Complete Order
+                  <button type="submit" className="btn btn-primary complete-btn" disabled={submitting}>
+                    {submitting ? 'Saving Order…' : 'Place Order'}
                   </button>
                 </div>
               </div>
@@ -226,7 +233,7 @@ const CheckoutPage = () => {
               {cart.map(item => (
                 <div key={item.id} className="summary-item">
                   <div className="summary-item-img">
-                    <img src={item.image} alt={item.name} />
+                    <img src={productImageUrl(item.image)} alt={item.name} />
                     <span className="summary-item-qty">{item.quantity}</span>
                   </div>
                   <div className="summary-item-info">

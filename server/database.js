@@ -37,6 +37,26 @@ db.serialize(() => {
       email TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL,
       role TEXT NOT NULL DEFAULT 'user',
+      addresses TEXT NOT NULL DEFAULT '[]',
+      created_at TEXT DEFAULT (datetime('now'))
+    )
+  `);
+
+  // Keep existing databases compatible with profile and checkout updates.
+  db.run(`ALTER TABLE users ADD COLUMN addresses TEXT NOT NULL DEFAULT '[]'`, () => {});
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS orders (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      items TEXT NOT NULL,
+      shipping_address TEXT NOT NULL,
+      subtotal INTEGER NOT NULL,
+      shipping INTEGER NOT NULL,
+      total INTEGER NOT NULL,
+      payment_method TEXT NOT NULL,
+      payment_status TEXT NOT NULL DEFAULT 'pending',
+      status TEXT NOT NULL DEFAULT 'processing',
       created_at TEXT DEFAULT (datetime('now'))
     )
   `);

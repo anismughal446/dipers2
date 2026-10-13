@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import './CartPage.css';
+import { productImageUrl } from '../utils/productContent';
 
 const CartPage = () => {
   const { cart, removeFromCart, updateQuantity } = useShop();
@@ -36,7 +37,7 @@ const CartPage = () => {
             {cart.map(item => (
               <div key={item.id} className="cart-item">
                 <div className="cart-item-img">
-                  <img src={item.image} alt={item.name} />
+                  <img src={productImageUrl(item.image)} alt={item.name} />
                 </div>
                 <div className="cart-item-info">
                   <span className="cart-item-vendor">{item.brand}</span>

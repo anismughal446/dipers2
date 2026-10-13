@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   }, []);
 
-  const getToken = () => localStorage.getItem('auth_token');
+  const getToken = useCallback(() => localStorage.getItem('auth_token'), []);
 
   return (
     <AuthContext.Provider value={{
@@ -68,6 +68,7 @@ export const AuthProvider = ({ children }) => {
       authLoading,
       isLoggedIn: !!user,
       isAdmin: user?.role === 'admin',
+      updateUser: setUser,
       login,
       register,
       logout,

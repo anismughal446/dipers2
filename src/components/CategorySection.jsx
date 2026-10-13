@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import './CategorySection.css';
+import { productImageUrl } from '../utils/productContent';
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -29,7 +30,7 @@ const CategorySection = ({ title, description, categorySlug, featuredImage, reve
         <div className="category-section-inner">
           {/* Big Item / Banner */}
           <div className="category-banner">
-            <img src={featuredImage} alt={title} className="banner-img" />
+            <img src={productImageUrl(featuredImage)} alt={title} className="banner-img" />
             <div className="banner-overlay">
               <div className="banner-content">
                 <h2>{title}</h2>
@@ -58,7 +59,7 @@ const CategorySection = ({ title, description, categorySlug, featuredImage, reve
                 {products.map(product => (
                   <Link to={`/product/${product.id}`} key={product.id} className="product-card-small">
                     <div className="product-image-small">
-                      <img src={product.image} alt={product.name} />
+                      <img src={productImageUrl(product.image)} alt={product.name} />
                       {product.is_sale === 1 && <span className="badge sale">Sale</span>}
                     </div>
                     <div className="product-info-small">

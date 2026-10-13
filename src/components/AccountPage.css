@@ -73,6 +73,19 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
+.profile-edit, .account-orders { padding: 24px 32px; border-bottom: 1px solid #f0f0f0; }
+.profile-edit h2, .account-orders h2 { margin: 0 0 16px; color: #1a1a2e; font-size: 18px; }
+.profile-edit label { display: block; margin: 0 0 6px; color: #555; font-size: 13px; }
+.profile-edit input { width: 100%; padding: 12px 14px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 10px; font: inherit; }
+.profile-edit .btn { margin-top: 4px; }
+.profile-edit p { margin: 12px 0 0; color: #0f766e; font-size: 13px; }
+.profile-edit .profile-error { color: #b91c1c; }
+.account-orders > p { color: #777; font-size: 14px; }
+.account-order { padding: 14px 0; border-top: 1px solid #eee; font-size: 13px; }
+.account-order > div { display: flex; justify-content: space-between; gap: 12px; color: #344; }
+.account-order p { margin: 8px 0; color: #666; line-height: 1.5; }
+.account-order span { text-transform: capitalize; color: #777; }
+
 .profile-stat {
   display: flex;
   flex-direction: column;

@@ -2,6 +2,7 @@ import React from 'react';
 import { X, ShoppingCart, Heart, Star } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import './QuickView.css';
+import { productImageUrl } from '../utils/productContent';
 
 const QuickView = () => {
   const { isQuickViewOpen, quickViewProduct, closeQuickView, addToCart, toggleWishlist, wishlist } = useShop();
@@ -17,7 +18,7 @@ const QuickView = () => {
         
         <div className="qv-grid">
           <div className="qv-img">
-            <img src={quickViewProduct.image} alt={quickViewProduct.name} />
+            <img src={productImageUrl(quickViewProduct.image)} alt={quickViewProduct.name} />
           </div>
           
           <div className="qv-info">

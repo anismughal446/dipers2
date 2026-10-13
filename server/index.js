@@ -106,6 +106,56 @@ app.get('/api/auth/me', authenticateToken, (req, res) => {
   res.json({ user: req.user });
 });
 
+app.patch('/api/auth/profile', authenticateToken, (req, res) => {
+  const { name, addresses } = req.body;
+  if (!name?.trim()) return res.status(400).json({ error: 'Name is required.' });
+  const safeAddresses = Array.isArray(addresses) ? addresses.slice(0, 10) : [];
+  db.run('UPDATE users SET name = ?, addresses = ? WHERE id = ?',
+    [name.trim(), JSON.stringify(safeAddresses), req.user.id], function (err) {
+      if (err) return res.status(500).json({ error: 'Could not update profile.' });
+      res.json({ user: { ...req.user, name: name.trim(), addresses: safeAddresses } });
+    });
+});
+
+app.get('/api/orders', authenticateToken, (req, res) => {
+  db.all('SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC', [req.user.id], (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Could not load orders.' });
+    res.json(rows.map(row => ({ ...row, items: JSON.parse(row.items), shipping_address: JSON.parse(row.shipping_address) })));
+  });
+});
+
+app.post('/api/orders', authenticateToken, (req, res) => {
+  const { items, shipping_address, payment_method } = req.body;
+  const methods = ['cod', 'stripe', 'jazzcash', 'easypaisa'];
+  if (!Array.isArray(items) || !items.length || !shipping_address?.address || !methods.includes(payment_method))
+    return res.status(400).json({ error: 'Order details are incomplete.' });
+  const requestedItems = items.map(item => ({ id: Number(item.id), quantity: Number(item.quantity) }));
+  if (requestedItems.some(item => !Number.isInteger(item.id) || !Number.isInteger(item.quantity) || item.quantity < 1) || requestedItems.length > 100)
+    return res.status(400).json({ error: 'Invalid order items.' });
+  const ids = [...new Set(requestedItems.map(item => item.id))];
+  db.all(`SELECT id, name, image, price, stock FROM products WHERE id IN (${ids.map(() => '?').join(',')})`, ids, (lookupErr, products) => {
+    if (lookupErr) return res.status(500).json({ error: 'Could not verify products.' });
+    if (products.length !== ids.length) return res.status(400).json({ error: 'A product in this cart is no longer available.' });
+    const byId = new Map(products.map(product => [product.id, product]));
+    const cleanItems = requestedItems.map(item => {
+      const product = byId.get(item.id);
+      return { id: product.id, name: product.name, image: product.image, price: product.price, quantity: item.quantity };
+    });
+    if (cleanItems.some(item => item.quantity > Number(byId.get(item.id).stock)))
+      return res.status(409).json({ error: 'There is not enough stock for one or more items.' });
+    const computedSubtotal = cleanItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const computedShipping = computedSubtotal > 3000 ? 0 : 250;
+    const paymentStatus = payment_method === 'cod' ? 'pay_on_delivery' : 'pending_provider_setup';
+    db.run(`INSERT INTO orders (user_id, items, shipping_address, subtotal, shipping, total, payment_method, payment_status)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [req.user.id, JSON.stringify(cleanItems), JSON.stringify(shipping_address), computedSubtotal, computedShipping, computedSubtotal + computedShipping, payment_method, paymentStatus],
+      function (err) {
+        if (err) return res.status(500).json({ error: 'Could not save your order.' });
+        res.status(201).json({ order: { id: this.lastID, status: 'processing', payment_status: paymentStatus, total: computedSubtotal + computedShipping } });
+      });
+  });
+});
+
 // ─── Product Routes (Public) ──────────────────────────────────────────────────
 app.get('/api/products', (req, res) => {
   const { category, vendor, minPrice, maxPrice, sort, page = 1, limit = 12 } = req.query;
