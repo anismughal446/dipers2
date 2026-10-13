@@ -46,10 +46,10 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="container nav-container">
           <Link to="/" className="nav-logo">
-            <span className="logo-icon">🪺</span>
+            <span className="logo-icon">🌱</span>
             <div className="logo-text">
-              <h1>LittleNest</h1>
-              <span className="logo-tagline">Baby & Kids Store</span>
+              <h1>Sproutello</h1>
+              <span className="logo-tagline">Little joys, every day</span>
             </div>
           </Link>
 

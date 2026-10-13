@@ -62,10 +62,10 @@ const ProductDetails = () => {
             
             <div className="info-rating">
               <div className="stars">
-                <Star size={16} fill="#f97316" color="#f97316" />
-                <Star size={16} fill="#f97316" color="#f97316" />
-                <Star size={16} fill="#f97316" color="#f97316" />
-                <Star size={16} fill="#f97316" color="#f97316" />
+                <Star size={16} fill="#F5C95D" color="#D5A934" />
+                <Star size={16} fill="#F5C95D" color="#D5A934" />
+                <Star size={16} fill="#F5C95D" color="#D5A934" />
+                <Star size={16} fill="#F5C95D" color="#D5A934" />
                 <Star size={16} color="#cbd5e1" />
               </div>
               <span>(12 Reviews)</span>

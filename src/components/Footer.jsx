@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Heart } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -9,8 +9,8 @@ const Footer = () => {
       <div className="container footer-grid">
         <div className="footer-col footer-about">
           <Link to="/" className="footer-logo">
-            <span className="footer-logo-icon">🪺</span>
-            <h3>LittleNest</h3>
+            <span className="footer-logo-icon">🌱</span>
+            <h3>Sproutello</h3>
           </Link>
           <p>Your one-stop destination for premium baby & kids products. We bring you the finest selection of clothing, gear, and essentials with fast delivery across Pakistan.</p>
           <div className="footer-socials">
@@ -54,8 +54,8 @@ const Footer = () => {
               <span>+92 300 1234567</span>
             </div>
             <div className="contact-row">
-              <Mail size={16} />
-              <span>hello@littlenest.pk</span>
+              <Heart size={16} />
+              <span>We're here to help with every little step</span>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <div className="container footer-bottom-inner">
-          <p>&copy; {new Date().getFullYear()} LittleNest. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Sproutello. All rights reserved.</p>
           <div className="payment-methods">
             <span>💳</span>
             <span>🏦</span>

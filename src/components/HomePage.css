@@ -85,11 +85,11 @@
 }
 
 .promo-1 {
-  background: linear-gradient(135deg, #fff7ed, #fed7aa);
+  background: linear-gradient(135deg, #FFF0E8, #FFE3B5);
 }
 
 .promo-2 {
-  background: linear-gradient(135deg, #f0fdfa, #99f6e4);
+  background: linear-gradient(135deg, #EAF7F3, #BCE5DE);
 }
 
 .promo-label {
@@ -104,8 +104,8 @@
 }
 
 .promo-1 .promo-label {
-  background: rgba(249, 115, 22, 0.15);
-  color: #ea580c;
+  background: rgba(237, 138, 99, 0.16);
+  color: #C86443;
 }
 
 .promo-2 .promo-label {

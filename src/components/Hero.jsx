@@ -9,9 +9,9 @@ const Hero = () => {
     <section className="hero-section">
       <div className="container hero-grid">
         <div className="hero-content fade-in-up">
-          <span className="hero-badge">✨ Summer Collection 2026</span>
-          <h1>Adorable Styles for Your <span className="gradient-text">Little Ones</span></h1>
-          <p>Discover curated collections of premium baby & kids clothing, gear, and essentials — all under one roof.</p>
+          <span className="hero-badge">🌼 A little wonder in every day</span>
+          <h1>Big smiles start with <span className="gradient-text">little things</span></h1>
+          <p>Find playful favorites and everyday essentials for growing kids, caring parents, and all the happy moments in between.</p>
           <div className="hero-buttons">
             <Link to="/shop/fashion" className="btn btn-primary">
               Shop Collection <ArrowRight size={18} />

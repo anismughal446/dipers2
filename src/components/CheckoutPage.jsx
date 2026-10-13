@@ -91,9 +91,9 @@ const CheckoutPage = () => {
     return (
       <div className="checkout-success container">
         <div className="success-card">
-          <CheckCircle size={80} color="#0d9488" />
+          <CheckCircle size={80} color="#3B7D78" />
           <h1>Order Placed Successfully!</h1>
-          <p>Thank you for shopping with LittleNest. Your order <strong>#LN-{order?.id}</strong> has been saved to your account.</p>
+          <p>Thank you for shopping with Sproutello. Your order <strong>#SP-{order?.id}</strong> has been saved to your account.</p>
           <div className="order-summary-box">
             <p><strong>Payment Method:</strong> {paymentLabels[paymentMethod]}</p>
             <p><strong>Payment Status:</strong> {paymentMethod === 'cod' ? 'Pay on delivery' : 'Pending provider setup'}</p>

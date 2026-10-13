@@ -110,7 +110,7 @@ const AccountPage = () => {
             <h2>My Orders</h2>
             {orders.length === 0 ? <p>Your orders will appear here after checkout.</p> : orders.map(order => (
               <article className="account-order" key={order.id}>
-                <div><strong>Order #LN-{order.id}</strong><span>{new Date(`${order.created_at}Z`).toLocaleDateString()}</span></div>
+                <div><strong>Order #SP-{order.id}</strong><span>{new Date(`${order.created_at}Z`).toLocaleDateString()}</span></div>
                 <p>{order.items.map(item => `${item.name} × ${item.quantity}`).join(', ')}</p>
                 <div><span>{order.status} · {order.payment_status.replaceAll('_', ' ')}</span><strong>Rs. {order.total.toLocaleString()}</strong></div>
               </article>

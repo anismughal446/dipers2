@@ -15,9 +15,9 @@
   align-items: center;
   gap: 14px;
   padding: 28px 16px;
-  border-radius: var(--radius-md);
-  background: var(--bg-color);
-  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, var(--white), #F1F8F5);
+  border: 1px solid #E8EFEB;
   transition: var(--transition);
   text-align: center;
 }

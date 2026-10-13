@@ -16,7 +16,7 @@
 }
 
 .profile-header {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  background: linear-gradient(135deg, #3B7D78 0%, #245B58 50%, #ED8A63 100%);
   padding: 40px 32px;
   display: flex;
   align-items: center;
@@ -97,7 +97,7 @@
 
 .profile-stat:last-child { border-right: none; }
 
-.stat-icon { color: #6366f1; }
+.stat-icon { color: #3B7D78; }
 .stat-value { font-size: 24px; font-weight: 800; color: #1a1a2e; }
 .stat-label { font-size: 12px; color: #888; }
 
@@ -126,18 +126,18 @@
 
 .profile-action-btn:hover {
   background: #f0f0f8;
-  border-color: #6366f1;
-  color: #6366f1;
+  border-color: #3B7D78;
+  color: #3B7D78;
   transform: translateX(4px);
 }
 
 .profile-action-btn.admin-btn {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(135deg, #3B7D78, #245B58);
   color: white;
   border: none;
 }
 .profile-action-btn.admin-btn:hover {
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  background: linear-gradient(135deg, #3B7D78, #ED8A63);
   transform: translateX(4px);
   color: white;
 }

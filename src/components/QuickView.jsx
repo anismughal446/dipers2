@@ -26,10 +26,10 @@ const QuickView = () => {
             <h2 className="qv-title">{quickViewProduct.name}</h2>
             
             <div className="qv-rating">
-              <Star size={16} fill="#f97316" color="#f97316" />
-              <Star size={16} fill="#f97316" color="#f97316" />
-              <Star size={16} fill="#f97316" color="#f97316" />
-              <Star size={16} fill="#f97316" color="#f97316" />
+              <Star size={16} fill="#F5C95D" color="#D5A934" />
+              <Star size={16} fill="#F5C95D" color="#D5A934" />
+              <Star size={16} fill="#F5C95D" color="#D5A934" />
+              <Star size={16} fill="#F5C95D" color="#D5A934" />
               <Star size={16} color="#cbd5e1" />
               <span>(5 reviews)</span>
             </div>

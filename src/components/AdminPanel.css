@@ -30,7 +30,7 @@
 .admin-loading-spinner {
   width: 36px; height: 36px;
   border: 3px solid #e5e7eb;
-  border-top-color: #6366f1;
+  border-top-color: #3B7D78;
   border-radius: 50%;
   animation: admin-spin 0.7s linear infinite;
 }
@@ -126,7 +126,7 @@
 
 /* Admin Header */
 .admin-header {
-  background: linear-gradient(135deg, #1e1b4b, #312e81, #6366f1);
+  background: linear-gradient(135deg, #183F42, #245B58, #3B7D78);
   color: white;
   padding: 0;
 }
@@ -181,7 +181,7 @@
 .admin-stat-icon.blue { background: #eff6ff; color: #3b82f6; }
 .admin-stat-icon.yellow { background: #fffbeb; color: #f59e0b; }
 .admin-stat-icon.red { background: #fff5f5; color: #ef4444; }
-.admin-stat-icon.purple { background: #f5f3ff; color: #8b5cf6; }
+.admin-stat-icon.purple { background: #EDF7F4; color: #245B58; }
 
 .admin-stat-card > div { display: flex; flex-direction: column; gap: 2px; }
 .admin-stat-value { font-size: 28px; font-weight: 800; color: #1a1a2e; }
@@ -214,8 +214,8 @@
   transition: all 0.2s;
 }
 
-.admin-tab:hover { color: #6366f1; }
-.admin-tab.active { color: #6366f1; border-bottom-color: #6366f1; }
+.admin-tab:hover { color: #3B7D78; }
+.admin-tab.active { color: #3B7D78; border-bottom-color: #3B7D78; }
 
 /* Content area */
 .admin-content {
@@ -343,8 +343,8 @@
 
 .admin-cat-badge {
   display: inline-block;
-  background: #f0f0ff;
-  color: #6366f1;
+  background: #E6F2EF;
+  color: #3B7D78;
   font-size: 11px;
   font-weight: 600;
   padding: 3px 10px;
@@ -389,8 +389,8 @@
   justify-content: center;
   transition: all 0.15s;
 }
-.admin-icon-btn.edit { background: #f0f0ff; color: #6366f1; }
-.admin-icon-btn.edit:hover { background: #6366f1; color: white; }
+.admin-icon-btn.edit { background: #E6F2EF; color: #3B7D78; }
+.admin-icon-btn.edit:hover { background: #3B7D78; color: white; }
 .admin-icon-btn.delete { background: #fff5f5; color: #ef4444; }
 .admin-icon-btn.delete:hover { background: #ef4444; color: white; }
 
@@ -415,7 +415,7 @@
   font-family: 'Inter', sans-serif;
   transition: all 0.15s;
 }
-.admin-btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+.admin-btn-primary { background: linear-gradient(135deg, #3B7D78, #245B58); color: white; box-shadow: 0 4px 12px rgba(59,125,120,0.3); }
 .admin-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
 .admin-btn-danger { background: #ef4444; color: white; }
 .admin-btn-danger:hover { background: #dc2626; }
@@ -460,7 +460,7 @@
 .admin-field select:focus,
 .admin-edit-form input:focus,
 .admin-edit-form select:focus {
-  border-color: #6366f1;
+  border-color: #3B7D78;
   box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
 }
 
@@ -486,7 +486,7 @@
 }
 .admin-checkbox-label input[type="checkbox"] {
   width: 16px; height: 16px;
-  accent-color: #6366f1;
+  accent-color: #3B7D78;
   cursor: pointer;
   padding: 0;
   border-radius: 4px;
@@ -584,7 +584,7 @@
   font-family: 'Inter', sans-serif;
   outline: none;
 }
-.admin-stock-input:focus { border-color: #6366f1; }
+.admin-stock-input:focus { border-color: #3B7D78; }
 
 .admin-stock-status {
   font-size: 11px;
@@ -607,7 +607,7 @@
   border-radius: 99px;
   text-transform: capitalize;
 }
-.admin-role-badge.admin { background: #f5f3ff; color: #7c3aed; }
+.admin-role-badge.admin { background: #EDF7F4; color: #245B58; }
 .admin-role-badge.user { background: #f0f9ff; color: #0369a1; }
 .admin-id { color: #bbb; font-size: 12px; }
 

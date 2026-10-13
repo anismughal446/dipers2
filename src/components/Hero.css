@@ -1,5 +1,5 @@
 .hero-section {
-  background: linear-gradient(135deg, #f0fdfa 0%, #fefce8 50%, #fff7ed 100%);
+  background: radial-gradient(circle at 85% 16%, rgba(245,201,93,.32) 0 10%, transparent 10.2%), radial-gradient(circle at 8% 92%, rgba(168,216,207,.42) 0 13%, transparent 13.2%), linear-gradient(135deg, #EAF7F3 0%, #FFF8DF 52%, #FFF0E8 100%);
   padding: 60px 0 80px;
   overflow: hidden;
   position: relative;
@@ -14,7 +14,7 @@
 
 .hero-badge {
   display: inline-block;
-  background: rgba(13, 148, 136, 0.1);
+  background: rgba(59, 125, 120, 0.11);
   color: var(--primary);
   padding: 8px 20px;
   border-radius: var(--radius-full);

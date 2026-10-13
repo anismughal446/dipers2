@@ -59,8 +59,8 @@ const RegisterPage = () => {
         <div className="auth-card">
           <div className="auth-card-left">
             <div className="auth-card-branding">
-              <span className="auth-logo-icon">🪺</span>
-              <h2>Join LittleNest</h2>
+              <span className="auth-logo-icon">🌱</span>
+              <h2>Join Sproutello</h2>
               <p>Create an account to start shopping</p>
               <div className="auth-features">
                 <div className="auth-feature">🎁 Exclusive member discounts</div>

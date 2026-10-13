@@ -44,9 +44,9 @@ const LoginPage = () => {
         <div className="auth-card">
           <div className="auth-card-left">
             <div className="auth-card-branding">
-              <span className="auth-logo-icon">🪺</span>
-              <h2>LittleNest</h2>
-              <p>Your trusted baby & kids store</p>
+              <span className="auth-logo-icon">🌱</span>
+              <h2>Sproutello</h2>
+              <p>Little joys, thoughtful finds, happy families</p>
               <div className="auth-features">
                 <div className="auth-feature">✅ Free delivery over Rs. 3,000</div>
                 <div className="auth-feature">🔒 Secure checkout</div>

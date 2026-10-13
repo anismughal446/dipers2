@@ -272,7 +272,7 @@ const AdminPanel = () => {
             <ShieldCheck size={28} />
             <div>
               <h1>Admin Panel</h1>
-              <p>LittleNest Store Management</p>
+              <p>Sproutello Store Management</p>
             </div>
           </div>
           <button className="admin-btn admin-btn-ghost" onClick={fetchProducts}>

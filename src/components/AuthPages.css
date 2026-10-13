@@ -1,15 +1,13 @@
 /* ── AuthPages.css ─────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
 .auth-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  background: linear-gradient(135deg, #EAF7F3 0%, #FFF8DF 52%, #FFF0E8 100%);
   position: relative;
   overflow: hidden;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', 'Trebuchet MS', sans-serif;
   padding: 20px;
 }
 
@@ -23,17 +21,17 @@
 }
 .auth-shape-1 {
   width: 600px; height: 600px;
-  background: radial-gradient(circle, #6366f1, transparent);
+  background: radial-gradient(circle, #3B7D78, transparent);
   top: -200px; left: -200px;
 }
 .auth-shape-2 {
   width: 500px; height: 500px;
-  background: radial-gradient(circle, #ec4899, transparent);
+  background: radial-gradient(circle, #ED8A63, transparent);
   bottom: -150px; right: -150px;
 }
 .auth-shape-3 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, #06b6d4, transparent);
+  background: radial-gradient(circle, #DCEFF3, transparent);
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -48,20 +46,20 @@
 .auth-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 24px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(59,125,120,0.12);
   overflow: hidden;
   box-shadow:
-    0 25px 50px rgba(0,0,0,0.5),
+    0 25px 50px rgba(39,54,75,0.16),
     inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 /* Left panel */
 .auth-card-left {
-  background: linear-gradient(160deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  background: linear-gradient(160deg, #3B7D78 0%, #245B58 50%, #ED8A63 100%);
   padding: 48px 36px;
   display: flex;
   align-items: center;
@@ -181,7 +179,7 @@
 .auth-input-wrap input::placeholder { color: rgba(255,255,255,0.3); }
 
 .auth-input-wrap input:focus {
-  border-color: #6366f1;
+  border-color: #3B7D78;
   background: rgba(99,102,241,0.1);
   box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
 }
@@ -238,7 +236,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(135deg, #3B7D78, #245B58);
   color: white;
   border: none;
   border-radius: 12px;
