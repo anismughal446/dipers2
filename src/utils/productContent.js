@@ -19,7 +19,7 @@ const verifiedImageFixes = {
 export function productDescription(product) {
   const category = String(product.category || '').toLowerCase();
   const copy = categoryCopy[category] || 'A thoughtful pick for little ones and the people who care for them. Explore the product details and find out whether it suits your family’s everyday needs.';
-  return `${product.name} is a ${product.category || 'Sproutello'} favorite from ${product.brand || product.vendor || 'our collection'}. ${copy}`;
+  return `${product.name} is a ${product.category || 'NunuNest'} favorite from ${product.brand || product.vendor || 'our collection'}. ${copy}`;
 }
 
 export function productImageUrl(image) {

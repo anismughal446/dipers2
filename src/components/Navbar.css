@@ -1,6 +1,6 @@
 /* Announcement Bar */
 .announcement-bar {
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  background: linear-gradient(100deg, #118E8A, #18AA9C 55%, #29B7A3);
   color: var(--white);
   text-align: center;
   padding: 8px 0;
@@ -40,8 +40,11 @@
 }
 
 .logo-icon {
-  font-size: 2rem;
+  width: 42px;
+  height: 42px;
+  display: block;
   line-height: 1;
+  filter: drop-shadow(0 3px 2px rgba(255, 201, 79, 0.35));
 }
 
 .logo-text h1 {
@@ -51,6 +54,8 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
+
+.logo-text h1 span { color: var(--accent); }
 
 .logo-tagline {
   font-size: 0.7rem;
@@ -189,8 +194,8 @@
 
 /* Category Nav */
 .cat-nav {
-  background: var(--white);
-  border-top: 1px solid var(--border-color);
+  background: linear-gradient(90deg, #fff8e9, #f0fbf8 48%, #fff2f5);
+  border-top: 1px solid #f0e8da;
   overflow: hidden;
 }
 

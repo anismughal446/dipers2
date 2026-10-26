@@ -5,6 +5,7 @@ import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
 import './CheckoutPage.css';
 import { productImageUrl } from '../utils/productContent';
+import StoreImage from './StoreImage';
 
 const paymentLabels = { cod: 'Cash on Delivery', stripe: 'Card payment (Stripe)', jazzcash: 'JazzCash', easypaisa: 'Easypaisa' };
 
@@ -93,7 +94,7 @@ const CheckoutPage = () => {
         <div className="success-card">
           <CheckCircle size={80} color="#3B7D78" />
           <h1>Order Placed Successfully!</h1>
-          <p>Thank you for shopping with Sproutello. Your order <strong>#SP-{order?.id}</strong> has been saved to your account.</p>
+          <p>Thank you for shopping with NunuNest. Your order <strong>#NN-{order?.id}</strong> has been saved to your account.</p>
           <div className="order-summary-box">
             <p><strong>Payment Method:</strong> {paymentLabels[paymentMethod]}</p>
             <p><strong>Payment Status:</strong> {paymentMethod === 'cod' ? 'Pay on delivery' : 'Pending provider setup'}</p>
@@ -233,7 +234,7 @@ const CheckoutPage = () => {
               {cart.map(item => (
                 <div key={item.id} className="summary-item">
                   <div className="summary-item-img">
-                    <img src={productImageUrl(item.image)} alt={item.name} />
+                    <StoreImage src={productImageUrl(item.image)} alt={item.name} />
                     <span className="summary-item-qty">{item.quantity}</span>
                   </div>
                   <div className="summary-item-info">

@@ -5,8 +5,10 @@ import Hero from './Hero';
 import CategoryList from './CategoryList';
 import ProductGrid from './ProductGrid';
 import CategorySection from './CategorySection';
+import DiaperSection from './DiaperSection';
 import './HomePage.css';
 import { productImageUrl } from '../utils/productContent';
+import StoreImage from './StoreImage';
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -37,7 +39,6 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <Hero />
-      <CategoryList />
 
       {/* Featured Products */}
       <section className="featured-section">
@@ -63,6 +64,8 @@ const HomePage = () => {
         </div>
       </section>
 
+      <CategoryList />
+
       {/* New Arrivals Section */}
       <section className="new-arrivals-section" style={{ padding: '80px 0', background: 'var(--white)' }}>
         <div className="container">
@@ -79,6 +82,8 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      <DiaperSection />
 
       {/* Category Specific Sections */}
       <CategorySection 
@@ -129,7 +134,7 @@ const HomePage = () => {
               <p>On selected baby fashion items</p>
               <Link to="/shop/sale" className="btn btn-accent">Shop Sale</Link>
             </div>
-            <img src={productImageUrl('/bp/cdn/shop/files/B187001204830000-2_e6509a5f-dd8d-4786-b106-bd0d54d58eb5.png?width=600')} alt="Promo 1" className="promo-img" />
+            <StoreImage src={productImageUrl('/bp/cdn/shop/files/B187001204830000-2_e6509a5f-dd8d-4786-b106-bd0d54d58eb5.png?width=600')} alt="Promo 1" className="promo-img" />
           </div>
           <div className="promo-card promo-2">
             <div className="promo-content">
@@ -138,7 +143,7 @@ const HomePage = () => {
               <p>Explore the latest collections</p>
               <Link to="/shop/new-arrival" className="btn btn-primary">Explore</Link>
             </div>
-            <img src={productImageUrl('/bp/cdn/shop/files/B187001197860000_3e225108-cec4-448d-ae25-aed87c8396ac.png?width=600')} alt="Promo 2" className="promo-img" />
+            <StoreImage src={productImageUrl('/bp/cdn/shop/files/B187001197860000_3e225108-cec4-448d-ae25-aed87c8396ac.png?width=600')} alt="Promo 2" className="promo-img" />
           </div>
         </div>
       </section>

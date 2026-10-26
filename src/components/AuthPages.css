@@ -68,7 +68,8 @@
 .auth-card-branding { color: white; }
 
 .auth-logo-icon {
-  font-size: 48px;
+  width: 56px;
+  height: 56px;
   display: block;
   margin-bottom: 16px;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));

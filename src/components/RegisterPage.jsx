@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { User, Mail, Lock, UserPlus, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import BrandMark from './BrandMark';
 import './AuthPages.css';
 
 const RegisterPage = () => {
@@ -59,8 +60,8 @@ const RegisterPage = () => {
         <div className="auth-card">
           <div className="auth-card-left">
             <div className="auth-card-branding">
-              <span className="auth-logo-icon">🌱</span>
-              <h2>Join Sproutello</h2>
+              <BrandMark className="auth-logo-icon" />
+              <h2>Join NunuNest</h2>
               <p>Create an account to start shopping</p>
               <div className="auth-features">
                 <div className="auth-feature">🎁 Exclusive member discounts</div>

@@ -5,6 +5,7 @@ import { useShop } from '../context/ShopContext';
 import ProductGrid from './ProductGrid';
 import './ProductDetails.css';
 import { productImageUrl } from '../utils/productContent';
+import StoreImage from './StoreImage';
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -52,7 +53,7 @@ const ProductDetails = () => {
         <div className="product-main-grid">
           <div className="product-gallery">
             <div className="main-img-wrap">
-              <img src={productImageUrl(product.image)} alt={product.name} />
+              <StoreImage src={productImageUrl(product.image)} alt={product.name} />
             </div>
           </div>
 

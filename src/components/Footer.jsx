@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BrandMark from './BrandMark';
 import { MapPin, Phone, Heart } from 'lucide-react';
 import './Footer.css';
 
@@ -9,8 +10,8 @@ const Footer = () => {
       <div className="container footer-grid">
         <div className="footer-col footer-about">
           <Link to="/" className="footer-logo">
-            <span className="footer-logo-icon">🌱</span>
-            <h3>Sproutello</h3>
+            <BrandMark className="footer-logo-icon" />
+            <h3><span>Nunu</span>Nest</h3>
           </Link>
           <p>Your one-stop destination for premium baby & kids products. We bring you the finest selection of clothing, gear, and essentials with fast delivery across Pakistan.</p>
           <div className="footer-socials">
@@ -63,7 +64,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <div className="container footer-bottom-inner">
-          <p>&copy; {new Date().getFullYear()} Sproutello. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} NunuNest. All rights reserved.</p>
           <div className="payment-methods">
             <span>💳</span>
             <span>🏦</span>

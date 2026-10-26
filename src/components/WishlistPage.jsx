@@ -4,6 +4,7 @@ import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import './WishlistPage.css';
 import { productImageUrl } from '../utils/productContent';
+import StoreImage from './StoreImage';
 
 const WishlistPage = () => {
   const { wishlist, toggleWishlist, addToCart } = useShop();
@@ -32,7 +33,7 @@ const WishlistPage = () => {
           {wishlist.map(product => (
             <div key={product.id} className="wishlist-item">
               <div className="wishlist-item-img">
-                <img src={productImageUrl(product.image)} alt={product.name} />
+                <StoreImage src={productImageUrl(product.image)} alt={product.name} />
                 <button 
                   className="remove-wish-btn"
                   onClick={() => toggleWishlist(product)}

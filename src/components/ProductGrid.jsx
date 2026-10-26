@@ -5,6 +5,7 @@ import './ProductGrid.css';
 
 import { useShop } from '../context/ShopContext';
 import { productDescription, productImageUrl } from '../utils/productContent';
+import StoreImage from './StoreImage';
 
 const ProductCard = ({ product }) => {
   const { addToCart, toggleWishlist, wishlist, openQuickView } = useShop();
@@ -25,7 +26,7 @@ const ProductCard = ({ product }) => {
           <Heart size={18} fill={isWishlisted ? "currentColor" : "none"} />
         </button>
         <Link to={`/product/${product.id}`}>
-          <img src={productImageUrl(product.image)} alt={product.name} loading="lazy" />
+          <StoreImage src={productImageUrl(product.image)} alt={product.name} loading="lazy" />
         </Link>
         <div className="product-actions">
           <button

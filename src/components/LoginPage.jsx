@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Mail, Lock, LogIn, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import BrandMark from './BrandMark';
 import './AuthPages.css';
 
 const LoginPage = () => {
@@ -44,9 +45,9 @@ const LoginPage = () => {
         <div className="auth-card">
           <div className="auth-card-left">
             <div className="auth-card-branding">
-              <span className="auth-logo-icon">🌱</span>
-              <h2>Sproutello</h2>
-              <p>Little joys, thoughtful finds, happy families</p>
+              <BrandMark className="auth-logo-icon" />
+              <h2>NunuNest</h2>
+              <p>Little ones, loved big</p>
               <div className="auth-features">
                 <div className="auth-feature">✅ Free delivery over Rs. 3,000</div>
                 <div className="auth-feature">🔒 Secure checkout</div>

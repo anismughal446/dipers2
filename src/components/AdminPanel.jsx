@@ -5,6 +5,8 @@ import {
   Search, RefreshCw, AlertCircle, CheckCircle, X, Edit3, Save, BarChart2, Users
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { productImageUrl } from '../utils/productContent';
+import StoreImage from './StoreImage';
 import './AdminPanel.css';
 
 const API_URL = 'http://localhost:5000/api';
@@ -272,7 +274,7 @@ const AdminPanel = () => {
             <ShieldCheck size={28} />
             <div>
               <h1>Admin Panel</h1>
-              <p>Sproutello Store Management</p>
+              <p>NunuNest Store Management</p>
             </div>
           </div>
           <button className="admin-btn admin-btn-ghost" onClick={fetchProducts}>
@@ -376,7 +378,7 @@ const AdminPanel = () => {
                       <tr key={p.id} className={(p.stock || 0) === 0 ? 'row-out-of-stock' : (p.stock || 0) < 10 ? 'row-low-stock' : ''}>
                         <td>
                           <div className="admin-product-cell">
-                            <img src={p.image} alt={p.name} className="admin-product-thumb" onError={e => e.target.src = 'https://via.placeholder.com/40'} />
+                            <StoreImage src={productImageUrl(p.image)} alt={p.name} className="admin-product-thumb" />
                             <div>
                               <span className="admin-product-name">{p.name}</span>
                               <span className="admin-product-brand">{p.brand}</span>
@@ -448,7 +450,7 @@ const AdminPanel = () => {
                   <input required type="text" placeholder="https://..." value={addForm.image} onChange={e => setAddForm({...addForm, image: e.target.value})} id="add-image" />
                   {addForm.image && (
                     <div className="admin-img-preview">
-                      <img src={addForm.image} alt="preview" onError={e => { e.target.style.display='none'; }} />
+                      <StoreImage src={productImageUrl(addForm.image)} alt="preview" />
                     </div>
                   )}
                 </div>
@@ -506,7 +508,7 @@ const AdminPanel = () => {
             <div className="admin-stock-grid">
               {filtered.map(p => (
                 <div key={p.id} className={`admin-stock-card ${(p.stock || 0) === 0 ? 'out' : (p.stock || 0) < 10 ? 'low' : ''}`}>
-                  <img src={p.image} alt={p.name} className="admin-stock-img" onError={e => e.target.src = 'https://via.placeholder.com/60'} />
+                  <StoreImage src={productImageUrl(p.image)} alt={p.name} className="admin-stock-img" />
                   <div className="admin-stock-info">
                     <span className="admin-stock-name">{p.name}</span>
                     <span className="admin-cat-badge">{p.category}</span>

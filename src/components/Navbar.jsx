@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, Menu, User, Heart, X, LogIn, LogOut, ShieldCheck } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
+import BrandMark from './BrandMark';
 import './Navbar.css';
 
 const categories = [
@@ -46,10 +47,10 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="container nav-container">
           <Link to="/" className="nav-logo">
-            <span className="logo-icon">🌱</span>
+            <BrandMark className="logo-icon" />
             <div className="logo-text">
-              <h1>Sproutello</h1>
-              <span className="logo-tagline">Little joys, every day</span>
+              <h1><span>Nunu</span>Nest</h1>
+              <span className="logo-tagline">Little ones, loved big</span>
             </div>
           </Link>
 

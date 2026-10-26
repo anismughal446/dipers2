@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import AdminPanel from './components/AdminPanel';
+import './StorefrontTheme.css';
 
 function App() {
   return (

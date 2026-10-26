@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './CategoryList.css';
 import { productImageUrl } from '../utils/productContent';
+import StoreImage from './StoreImage';
 
 const categories = [
   { name: 'Fashion', slug: 'fashion', image: '/bp/cdn/shop/files/B187001203750000_105c7f7d-62a0-458a-a3be-3da6dc94b61d.png?width=600', color: '#fce4ec' },
@@ -31,10 +32,10 @@ const CategoryList = () => {
               key={cat.slug}
               to={`/shop/${cat.slug}`}
               className="category-card fade-in-up"
-              style={{ animationDelay: `${index * 0.05}s` }}
+              style={{ animationDelay: `${index * 0.05}s`, '--category-color': cat.color }}
             >
               <div className="category-image-wrapper">
-                <img src={productImageUrl(cat.image)} alt={cat.name} className="category-image" />
+                <StoreImage src={productImageUrl(cat.image)} alt={cat.name} className="category-image" />
               </div>
               <h3>{cat.name}</h3>
             </Link>
